@@ -1,0 +1,8 @@
+.env
+.env.*
+__pycache__/
+tones/*.wav
+*.pyc
+venv/
+
+tones/
