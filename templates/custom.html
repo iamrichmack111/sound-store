@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>💫 Custom Tone Builder ($5)</h2>
+<p>Enter your own frequency and duration (up to 6 minutes).</p>
+<form method="post" action="{{ url_for('checkout_create') }}" class="row g-3">
+  <div class="col-md-6">
+    <label class="form-label">Category</label>
+    <select name="category" class="form-select">
+      <option value="Custom">Custom</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Frequency (Hz)</label>
+    <input type="number" name="frequency" step="0.1" class="form-control" placeholder="e.g. 432" required>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Duration (seconds, max 360)</label>
+    <input type="number" name="duration" class="form-control" value="60" min="1" max="360" required>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-warning">Purchase & Generate ($5)</button>
+  </div>
+</form>
+{% endblock %}

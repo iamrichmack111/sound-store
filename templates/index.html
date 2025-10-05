@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Binaural & Monaural Beats Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="/">🧘 Beat Builder</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link {% if active=='build' %}active{% endif %}" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if active=='faq' %}active{% endif %}" href="/faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link {% if active=='custom' %}active{% endif %}" href="/custom">Custom</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h2 class="text-center mb-4">🎧 Prebuilt Chakra & Planetary Tones</h2>
+  <p class="text-center text-muted">Click play to hear a 5-second preview. Full tones are available for purchase.</p>
+
+  <div class="row">
+    {% for name, filename in previews.items() %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ name }}</h5>
+            <p class="card-text small text-muted">
+              {{ desc.get(name, planet_desc.get(name.split()[-1], '')) }}
+            </p>
+
+            <audio controls preload="none" style="width:100%;">
+              <source src="{{ url_for('download_prebuilt', filename=filename) }}" type="audio/wav">
+              Your browser does not support audio playback.
+            </audio>
+
+            <form method="POST" action="{{ url_for('checkout_create') }}" class="mt-2">
+              <input type="hidden" name="category" value="{{ name }}">
+              <input type="hidden" name="duration" value="360">
+              <button class="btn btn-primary btn-sm mt-2">Buy Full (6 min / $2)</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <hr class="my-4">
+  <p class="text-center small text-secondary">
+    ⚠️ <strong>Disclaimer:</strong> These tones are for relaxation, meditation, and personal use only.
+    They are not medical treatments or substitutes for professional care.
+  </p>
+</div>
+
+</body>
+</html>
