@@ -294,4 +294,8 @@ def custom():
 
 if __name__ == "__main__":
     print(f"🎧 Serving tones from: {TONES_DIR}")
-    app.run(debug=(os.getenv("FLASK_ENV") != "production"))
+    app.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 5000)),
+        debug=(os.getenv("FLASK_ENV") != "production")
+    )
